@@ -1,19 +1,21 @@
-function get_calc(obj) {
-    var display = document.querySelector('.display');
-    if (display) {
-        if (obj.value === "C") {
-            display.value = "";
+function getCalc(button) {
+    var value = button.getAttribute('data-value');
+    var display = document.querySelector('input[name="display"]');
+    if (!display)
+        return;
+    if (value === 'C') {
+        display.value = '';
+    }
+    else if (value === '=') {
+        try {
+            display.value = String(eval(display.value));
         }
-        else if (obj.value === "=") {
-            try {
-                display.value = eval(display.value);
-            }
-            catch (e) {
-                display.value = "Error";
-            }
-        }
-        else {
-            display.value += obj.value;
+        catch (e) {
+            display.value = 'Error';
         }
     }
+    else {
+        display.value += value;
+    }
 }
+window.getCalc = getCalc;
